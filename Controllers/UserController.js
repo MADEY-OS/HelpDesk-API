@@ -1,21 +1,7 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
-
-//Database Model
-const User = mongoose.model(
-  "User",
-  new mongoose.Schema({
-    userID: String,
-    name: String,
-    sName: String,
-    room: String,
-    role: String,
-    department: String,
-    email: String,
-    phone: String,
-  })
-);
+const User = require("../Models/User.js");
 
 //GET: all users.
 router.get("/", async (req, res) => {
@@ -47,7 +33,7 @@ router.post("/", async (req, res) => {
   res.send(user);
 });
 
-//PUT: single task.
+//PUT: single user.
 router.put("/:id", async (req, res) => {
   const user = await User.findOneAndUpdate(
     { userID: req.params.id },
@@ -66,7 +52,7 @@ router.put("/:id", async (req, res) => {
   res.send(user);
 });
 
-//DELETE: single task.
+//DELETE: single user.
 router.delete("/:id", async (req, res) => {
   const user = await User.findOneAndDelete({ userID: req.params.id });
   if (!user) return res.status(404).send("Zadanie z podanym id nie istnieje.");

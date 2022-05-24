@@ -1,21 +1,7 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
-
-//Database Model
-const Task = mongoose.model(
-  "Task",
-  new mongoose.Schema({
-    taskID: String,
-    title: String,
-    desc: String,
-    status: String,
-    category: String,
-    prio: String,
-    deadline: String,
-    worker: String,
-  })
-);
+const Task = require("../Models/Task.js");
 
 //GET: all tasks.
 router.get("/", async (req, res) => {

@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 const port = process.env.PORT || 3000;
 const con = "mongodb://localhost/HelpDesk";
 
-const tasks = require("./routes/tasks");
-const users = require("./routes/users");
+const tasks = require("./Controllers/TaskController");
+const users = require("./Controllers/UserController");
 //const devices = require("./routes/devices");
 
 const app = express();
