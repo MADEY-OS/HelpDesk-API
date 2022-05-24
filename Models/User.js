@@ -4,14 +4,14 @@ const mongoose = require("mongoose");
 const User = mongoose.model(
     "User",
     new mongoose.Schema({
-      userID: String,
-      name: String,
-      sName: String,
-      room: String,
-      role: String,
-      department: String,
-      email: String,
-      phone: String,
+      userID: {type: String},
+      name: {type: String, required: true, maxlength: 50},
+      sName: {type: String, required: true, maxlength: 50},
+      room: {type: String},
+      role: {type: String},
+      department: {type: String},
+      email: {type: String},
+      phone: {type: String},
     })
   );
   

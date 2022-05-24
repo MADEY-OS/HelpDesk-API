@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
 const User = require("../Models/User.js");
@@ -29,8 +28,12 @@ router.post("/", async (req, res) => {
     email: req.body.email,
     phone: req.body.phone,
   });
-  user = await user.save();
-  res.send(user);
+  try {
+    const result = await user.save();
+    res.send(result);
+  } catch (ex) {
+    console.log(ex);
+  }
 });
 
 //PUT: single user.

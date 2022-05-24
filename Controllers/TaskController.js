@@ -18,9 +18,8 @@ router.get("/:id", async (req, res) => {
 
 //POST: single task.
 router.post("/", async (req, res) => {
-  const date = Date.now();
   let task = new Task({
-    taskID: date,
+    userID: req.body.userID,
     title: req.body.title,
     desc: req.body.desc,
     status: req.body.status,
@@ -29,8 +28,12 @@ router.post("/", async (req, res) => {
     deadline: req.body.deadline,
     worker: req.body.worker,
   });
-  task = await task.save();
-  res.send(task);
+  try {
+    const result = await task.save();
+    res.send(result);
+  } catch (ex) {
+    console.log(ex.message);
+  }
 });
 
 //PUT: single task.
