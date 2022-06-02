@@ -5,7 +5,7 @@ const Task = mongoose.model(
   "Task",
   new mongoose.Schema({
     taskID: { type: String, unique: true, default: Date.now },
-    userID: { type: String, require: true},
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'users'},
     title: { type: String, required: true, maxlength: 10 },
     desc: { type: String, required: true, maxlength: 200 },
     status: {type: String, default: "Nowe"},

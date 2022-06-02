@@ -1,7 +1,21 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
-const Task = require("../Models/Task.js");
+
+//Database Model
+const Task = mongoose.model(
+  "Task",
+  new mongoose.Schema({
+    taskID: String,
+    title: String,
+    desc: String,
+    status: String,
+    category: String,
+    prio: String,
+    deadline: String,
+    worker: String,
+  })
+);
 
 //GET: all tasks.
 router.get("/", async (req, res) => {
@@ -18,8 +32,9 @@ router.get("/:id", async (req, res) => {
 
 //POST: single task.
 router.post("/", async (req, res) => {
+  const date = Date.now();
   let task = new Task({
-    user: req.body.user,
+    taskID: date,
     title: req.body.title,
     desc: req.body.desc,
     status: req.body.status,
@@ -28,12 +43,8 @@ router.post("/", async (req, res) => {
     deadline: req.body.deadline,
     worker: req.body.worker,
   });
-  try {
-    const result = await task.save();
-    res.send(result);
-  } catch (ex) {
-    console.log(ex.message);
-  }
+  task = await task.save();
+  res.send(task);
 });
 
 //PUT: single task.

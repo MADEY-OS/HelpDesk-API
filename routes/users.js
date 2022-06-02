@@ -1,6 +1,21 @@
+const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
-const User = require("../Models/User.js");
+
+//Database Model
+const User = mongoose.model(
+  "User",
+  new mongoose.Schema({
+    userID: String,
+    name: String,
+    sName: String,
+    room: String,
+    role: String,
+    department: String,
+    email: String,
+    phone: String,
+  })
+);
 
 //GET: all users.
 router.get("/", async (req, res) => {
@@ -21,28 +36,24 @@ router.post("/", async (req, res) => {
   let user = new User({
     userID: "N" + date,
     name: req.body.name,
-    lastName: req.body.sName,
+    sName: req.body.sName,
     room: req.body.room,
     role: req.body.role,
     department: req.body.department,
     email: req.body.email,
     phone: req.body.phone,
   });
-  try {
-    const result = await user.save();
-    res.send(result);
-  } catch (ex) {
-    console.log(ex);
-  }
+  user = await user.save();
+  res.send(user);
 });
 
-//PUT: single user.
+//PUT: single task.
 router.put("/:id", async (req, res) => {
   const user = await User.findOneAndUpdate(
     { userID: req.params.id },
     {
       name: req.body.name,
-      lastName: req.body.sName,
+      sName: req.body.sName,
       room: req.body.room,
       role: req.body.role,
       department: req.body.department,
@@ -55,7 +66,7 @@ router.put("/:id", async (req, res) => {
   res.send(user);
 });
 
-//DELETE: single user.
+//DELETE: single task.
 router.delete("/:id", async (req, res) => {
   const user = await User.findOneAndDelete({ userID: req.params.id });
   if (!user) return res.status(404).send("Zadanie z podanym id nie istnieje.");

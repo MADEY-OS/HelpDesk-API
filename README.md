@@ -4,7 +4,7 @@ Do działania wymaga:
 - Node.js
 
 Uruchomienie:
-- w głównym folderze z API => npm install
+- w głównym folderze z API => npm init
 - odpalanie => node index.js
 
 Testowanie:
